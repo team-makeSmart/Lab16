@@ -1,12 +1,10 @@
 """
-Lab 16
+Lab 16: Opens a web-page and collects 5 headlines along with the 5 journalists that wrote them
 team members: Pavlos Papadonikolakis, Maco Dousias, Jake McGhee
 source website: https://www.politico.com/news/cnn
 """
 
-
 import urllib
-
 
 def get_html_file():
     """
@@ -26,14 +24,12 @@ def get_html_file():
 
     return html_file
 
-
 def get_all_titles():
     """
     gets all headlines from the file
     :return all the headlines
 
     """
-
     html_file = get_html_file()
     all_titles = ''
     start = 'target="_top">'
@@ -61,13 +57,11 @@ def get_all_titles():
 
     return all_titles
 
-
-def get_nine_titles():
+def get_headlines():
     """
-    gets nine headlines from all the headlines
+    gets nine from all the headlines
     :return: nine headlines
     """
-
     all_titles = get_all_titles()
 
     new_index = 0
@@ -77,29 +71,16 @@ def get_nine_titles():
             new_index = i
             break
     for j in range(new_index, len(all_titles)):
-        if all_titles[j:j + 12] == 'LOUIS NELSON':
+        if all_titles[j:j + 7] == 'edition':
             nine_titles += all_titles[j - 1]
             break
         nine_titles += all_titles[j]
 
-    return replace_achii_code(nine_titles)
-
-
-def replace_achii_code(str):
-    """
-    coverts two ascii codes that appear in the file to their characters
-    :param str:(string) the contents of the file
-    :return: the contents with replaced achii code characters 
-    """
-
-    str = str.replace("&#039;", "'")
-    str = str.replace("&amp;", "&")
-    return str
-
+    return nine_titles
 
 def makePage():
     """
-    creates an html file in the local drive that displays the nine
+    creates a html file in the local drive that displays the nine
     headlines extracted from the file
     :return: the index.html file
     """
@@ -107,21 +88,21 @@ def makePage():
 
     html = """<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01
     Transition//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <html>
     <head><title>Lab16</title>
     </head>
-    <body align="center">
-    <h1>CNN HEADLINES NOVEMBER 2017 </h1>
+    <body align="left">
+    <h1>CNN HEADLINES NOVEMBER 2017</h1>
     <h3>These Are the Most Important News</h3>
     <hr>
     <p>{code}</p>
 
-  </body>
-  </html>""".format(code=get_nine_titles().replace('\n', '<br/>'))
+    </body>
+    </html>""".format(code=get_headlines().replace('\n', '<br/>'))
 
     file.write(html)
     file.close()
-
 
 makePage()
