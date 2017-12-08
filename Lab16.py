@@ -64,7 +64,7 @@ def get_all_titles():
 
 def get_nine_titles():
     """
-    gets nine from all the headlines
+    gets nine headlines from all the headlines
     :return: nine headlines
     """
 
@@ -88,8 +88,8 @@ def get_nine_titles():
 def replace_achii_code(str):
     """
     coverts two ascii codes that appear in the file to their characters
-    :param str:
-    :return:
+    :param str:(string) the contents of the file
+    :return: the contents with replaced achii code characters 
     """
 
     str = str.replace("&#039;", "'")
@@ -99,7 +99,7 @@ def replace_achii_code(str):
 
 def makePage():
     """
-    creates a html file in the local drive that displays the nine
+    creates an html file in the local drive that displays the nine
     headlines extracted from the file
     :return: the index.html file
     """
