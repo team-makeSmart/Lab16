@@ -1,5 +1,5 @@
 """
-Lab 16: Opens a web-page and collects 5 headlines along with the 5 journalists that wrote them
+Lab 16: Opens a web-page and collects 6 headlines along with the 6 journalists that wrote them
 team members: Pavlos Papadonikolakis, Maco Dousias, Jake McGhee
 source website: https://www.politico.com/news/cnn
 """
@@ -17,10 +17,10 @@ def get_html_file():
         url = 'https://www.politico.com/news/cnn'
         html_file = urllib.urlopen(url).read()
 
-    except IOError as io_error:
-        print("Wrong file or file path ", io_error)
-    except UnicodeDecodeError as decode_err:
-        print('Error decoding url: ', url, decode_err)
+    except IOError:
+        print("Wrong file or file path ")
+    except UnicodeDecodeError:
+        print('Error decoding url: ', url)
 
     return html_file
 
@@ -59,24 +59,24 @@ def get_all_titles():
 
 def get_headlines():
     """
-    gets nine from all the headlines
-    :return: nine headlines
+    gets six out of all the headlines
+    :return: six headlines
     """
     all_titles = get_all_titles()
 
     new_index = 0
-    nine_titles = ''
+    six_titles = ''
     for i in xrange(len(all_titles)):
         if all_titles[i:i + 14] == 'JASON SCHWARTZ':
             new_index = i
             break
     for j in range(new_index, len(all_titles)):
-        if all_titles[j:j + 7] == 'edition':
-            nine_titles += all_titles[j - 1]
+        if all_titles[j:j + 13] == 'STEVEN OVERLY':
+            six_titles += all_titles[j - 1]
             break
-        nine_titles += all_titles[j]
+        six_titles += all_titles[j]
 
-    return nine_titles
+    return six_titles.replace('\n','<br>')
 
 def makePage():
     """
@@ -95,14 +95,16 @@ def makePage():
     </head>
     <body align="left">
     <h1>CNN HEADLINES NOVEMBER 2017</h1>
-    <h3>These Are the Most Important News</h3>
+    <h3>These Are The Most Important News</h3>
     <hr>
-    <p>{code}</p>
+    <p>"""+get_headlines()+"""</p>
+    <hr>
 
     </body>
-    </html>""".format(code=get_headlines().replace('\n', '<br/>'))
+    </html>"""
 
     file.write(html)
     file.close()
+    print 'index.html is created'
 
 makePage()
