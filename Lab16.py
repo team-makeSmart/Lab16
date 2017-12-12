@@ -84,7 +84,15 @@ def makePage():
     headlines extracted from the file
     :return: the index.html file
     """
-    file = open("/Users/pavlosp1967/Desktop/index.html", "wt")
+    
+     # Get the programs working directory
+    directory = os.path.dirname(__file__)
+    
+    # Make full path name
+    path = directory + "\\index.html"
+    
+    # Open the file for writing or create it if it doesn't exist already
+    file = open(path, "wt+")
 
     html = """<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01
     Transition//EN" "http://www.w3.org/TR/html4/loose.dtd">
